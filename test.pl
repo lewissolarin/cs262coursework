@@ -1,3 +1,11 @@
+/*
+1. YES
+*/
+
+% My workings out
+% 1. YES
+
+
 % Define precedence of operators
 :- op(140, fy, neg).
 :- op(160, xfy, and).
@@ -84,6 +92,7 @@ components(X notequiv Y, X notimp Y, Y notimp X).
 % % unary formula X.
 
 component(neg neg X, X).
+component(neg X, neg X).
 component(neg true, false).
 component(neg false, true).
 
@@ -121,6 +130,7 @@ resolutionstep([Disjunction | Rest], New) :-
     remove(Beta, Disjunction, Temporary),
     Newdis = [Betaone, Betatwo | Temporary],
     write('Beta \n'),
+    write(Betaone), write(', '), write(Betatwo), write('\n \n'),
     New = [Newdis | Rest].
 
 % Alpha rule
@@ -133,6 +143,8 @@ resolutionstep([Disjunction | Rest], New) :-
     Newdisone = [Alphaone | Temporary],
     Newdistwo = [Alphatwo | Temporary],
     write('Alpha \n'),
+    write(Alphaone), write('\n'),
+    write(Alphatwo), write('\n \n'),
     New = [Newdisone, Newdistwo | Rest].
 
 
@@ -141,17 +153,26 @@ resolutionstep([Disjunction | Rest], New) :-
 % Resolution Rule
 
 resolutionstep([Disjunction | Rest], New) :-
+    % write('Resolution Rule Check - '), write(Disjunction), write('\n'),
     member(Literal, Disjunction),
     member(OtherDisjunction, Rest),
-    member(neg(Literal), OtherDisjunction),
+    % write('Other - '), write(OtherDisjunction), write('\n'),
+    % write(Literal), write('\n'),
+    component(neg(Literal), Negation),
+    % write('made component \n'),
+    % write('Looking for - '),write(Negation), write('\n'),
+    member(Negation, OtherDisjunction),
+    % member(neg(Literal), OtherDisjunction),
 
     remove(Literal, Disjunction, TemporaryOne),
-    remove(neg(Literal), OtherDisjunction, TemporaryTwo), 
+    % remove(component(neg(Literal)), OtherDisjunction, TemporaryTwo), 
+    remove(Negation, OtherDisjunction, TemporaryTwo), 
     append([TemporaryOne,TemporaryTwo], NewDisjunction),
 
-    remove(OtherDisjunction, Rest, NewConjunction),
+    % remove(OtherDisjunction, Rest, NewConjunction),
     write('Resolution \n'),
-    New = [NewDisjunction | NewConjunction].
+    write(NewDisjunction), write('\n \n'),
+    New = [NewDisjunction | [Disjunction | Rest]].
 
 resolutionstep([Disjunction|Rest], [Disjunction|Newrest]) :-
     resolutionstep(Rest, Newrest).
@@ -198,3 +219,6 @@ no :- write('NO'), nl.
 
 
 
+
+
+my_test:-test(((x imp y) and x) imp y).

@@ -1,0 +1,18 @@
+Alpha 
+(x imp y)and x
+neg y
+ 
+Alpha 
+x imp y
+x
+ 
+Beta 
+neg x, y
+ 
+Resolution 
+[y]
+ 
+Resolution 
+[]
+ 
+YES
