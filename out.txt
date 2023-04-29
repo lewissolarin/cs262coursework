@@ -31,13 +31,4 @@ Resolution
 Resolution 
 [z,neg y]
  
-Alpha 
-[y]
-[neg z]
- 
-Resolution 
-[neg y]
- 
-Closed with [y] and [neg y]
- 
-YES
+NO

@@ -57,6 +57,8 @@ equiv_operator(neg(_ notequiv _)).
 
 
 
+
+
 % conjunctive (X) :- X is an alpha formula.
 
 conjunctive(_ and _).
@@ -134,6 +136,15 @@ remove(X, [X | Tail], Newtail) :-
 remove(X, [Head | Tail], [Head | Newtail]) :-
     remove(X, Tail, Newtail).
 
+remove_duplicates([], []).
+
+remove_duplicates([Head | Tail], Result) :-
+    member(Head, Tail), !,
+    remove_duplicates(Tail, Result).
+
+remove_duplicates([Head | Tail], [Head | Result]) :-
+    remove_duplicates(Tail, Result).
+
 
 % Unary conversions
 resolutionstep([Disjunction | Rest], New) :-
@@ -206,19 +217,24 @@ resolutionstep([Disjunction | Rest], New) :-
     % member(neg(Literal), OtherDisjunction),
 
     remove(Literal, Disjunction, TemporaryOne),
-    remove(Negation, TemporaryOne, NewTemporaryOne),
     % remove(component(neg(Literal)), OtherDisjunction, TemporaryTwo), 
-    remove(Literal, OtherDisjunction, TemporaryTwo),
-    remove(Negation, TemporaryTwo, NewTemporaryTwo), 
-    append([NewTemporaryOne,NewTemporaryTwo], NewDisjunction),
+    remove(Negation, OtherDisjunction, TemporaryTwo), 
+    append([TemporaryOne,TemporaryTwo], Resolvent),
 
     % remove(OtherDisjunction, Rest, NewConjunction),
     write('Resolution \n'),
-    write(NewDisjunction), write('\n \n'),
+    write(Resolvent), write('\n \n'),
 
+    
     append(Rest, [Disjunction], NewRest),
-    not(member(NewDisjunction, NewRest)),
-    New = [NewDisjunction | NewRest].
+    % sort
+    !,
+    not(member(Resolvent, NewRest)),
+    append([Resolvent], NewRest, NewNewRest),
+    append(NewNewRest, [Resolvent], New).
+    
+
+    % New = [NewDisjunction | NewRest].
 
 resolutionstep([Disjunction|Rest], [Disjunction|Newrest]) :-
     resolutionstep(Rest, Newrest).

@@ -219,14 +219,23 @@ resolutionstep([Disjunction | Rest], New) :-
     remove(Literal, Disjunction, TemporaryOne),
     % remove(component(neg(Literal)), OtherDisjunction, TemporaryTwo), 
     remove(Negation, OtherDisjunction, TemporaryTwo), 
-    append([TemporaryOne,TemporaryTwo], NewDisjunction),
+    append([TemporaryOne,TemporaryTwo], Resolvent),
 
     % remove(OtherDisjunction, Rest, NewConjunction),
     write('Resolution \n'),
-    write(NewDisjunction), write('\n \n'),
+    write(Resolvent), write('\n \n'),
 
-    append([Disjunction], Rest, NewRest),
-    New = [NewDisjunction | NewRest].
+    
+    append(Rest, [Disjunction], NewRest),
+    % sort
+    % !  Having a cut here will make it work for NO instances
+    % Need a way to stop running infintely
+    not(member(Resolvent, NewRest)),
+    % append([Resolvent], NewRest, NewNewRest),
+    append(NewRest, [Resolvent], New).
+    
+
+    % New = [NewDisjunction | NewRest].
 
 resolutionstep([Disjunction|Rest], [Disjunction|Newrest]) :-
     resolutionstep(Rest, Newrest).
