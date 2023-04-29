@@ -217,16 +217,21 @@ resolutionstep([Disjunction | Rest], New) :-
     % member(neg(Literal), OtherDisjunction),
 
     remove(Literal, Disjunction, TemporaryOne),
+    remove(Negation, TemporaryOne, NewTemporaryOne),
     % remove(component(neg(Literal)), OtherDisjunction, TemporaryTwo), 
-    remove(Negation, OtherDisjunction, TemporaryTwo), 
-    append([TemporaryOne,TemporaryTwo], NewDisjunction),
+    remove(Literal, OtherDisjunction, TemporaryTwo),
+    remove(Negation, TemporaryTwo, NewTemporaryTwo), 
+    append([NewTemporaryOne,NewTemporaryTwo], NewDisjunction),
 
     % remove(OtherDisjunction, Rest, NewConjunction),
-    write('Resolution \n'),
-    write(NewDisjunction), write('\n \n'),
+    
 
     append([Disjunction], Rest, NewRest),
-    New = [NewDisjunction | NewRest].
+    sort(NewDisjunction, NewNewDisjunction),
+    write('Resolution \n'),
+    write(NewNewDisjunction), write('\n \n'),
+    not(member(NewNewDisjunction, [Disjunction | Rest])),
+    New = [NewNewDisjunction | NewRest].
 
 resolutionstep([Disjunction|Rest], [Disjunction|Newrest]) :-
     resolutionstep(Rest, Newrest).

@@ -1,18 +1,43 @@
 Alpha 
-(x imp y)and x
-neg y
- 
-Alpha 
-x imp y
-x
+[neg (z notrevimp y)revimp x]
+[neg ((x or w)imp(y imp z)or w)]
  
 Beta 
-neg x, y
+[neg (z notrevimp y),neg x]
+ 
+Beta 
+[z,neg y,neg x]
+ 
+Alpha 
+[x or w]
+[neg ((y imp z)or w)]
+ 
+Beta 
+[x,w]
  
 Resolution 
+[z,neg y,w]
+ 
+Resolution 
+[w,z,neg y]
+ 
+Alpha 
+[neg (y imp z)]
+[neg w]
+ 
+Resolution 
+[z,neg y]
+ 
+Resolution 
+[z,neg y]
+ 
+Alpha 
 [y]
+[neg z]
  
 Resolution 
-[]
+[neg y]
+ 
+Closed with [y] and [neg y]
  
 YES

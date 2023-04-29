@@ -1,9 +1,22 @@
 /*
 1. YES
+2. YES
+3. YES
+4. YES
+7. YES
+8. NO 
+9. YES CHECK AGAIN
+10. YES
 */
 
 % My workings out
 % 1. YES
+% 2. YES
+% 3. YES
+% 7. YES
+% 8. NO 
+% 9. YES CHECK AGAIN
+% 10. YES
 
 
 % Define precedence of operators
@@ -37,6 +50,12 @@ unary(neg neg _).
 unary(neg true).
 unary(neg false).
 
+equiv_operator(_ equiv _).
+equiv_operator(neg(_ equiv _)).
+equiv_operator(_ notequiv _).
+equiv_operator(neg(_ notequiv _)).
+
+
 
 % conjunctive (X) :- X is an alpha formula.
 
@@ -48,7 +67,7 @@ conjunctive(neg(_ uparrow _)).
 conjunctive(_ downarrow _).
 conjunctive(_ notimp _).
 conjunctive(_ notrevimp _).
-conjunctive(_ equiv _).
+% conjunctive(_ equiv _).
 
 % % disjunctive (X) :- X is a beta formula.
 
@@ -60,7 +79,7 @@ disjunctive(_ uparrow _).
 disjunctive(neg(_ downarrow _)).
 disjunctive(neg(_ notimp _)).
 disjunctive(neg(_ notrevimp _)).
-disjunctive(_ notequiv _).
+% disjunctive(_ notequiv _).
 
 
 % % components (X, Y, Z) :- Y and Z are the components
@@ -83,8 +102,8 @@ components(X notimp Y, X, neg Y).
 components(neg(X notimp Y), neg X, Y).
 components(X notrevimp Y, neg X, Y).
 components(neg(X notrevimp Y), X, neg Y).
-components(X equiv Y, X imp Y, Y imp X).
-components(X notequiv Y, X notimp Y, Y notimp X).
+% components(X equiv Y, X imp Y, Y imp X).
+% components(X notequiv Y, X notimp Y, Y notimp X).
 
 
 
@@ -95,6 +114,11 @@ component(neg neg X, X).
 component(neg X, neg X).
 component(neg true, false).
 component(neg false, true).
+
+equiv_component(X equiv Y, (X imp Y) and (X revimp Y)).
+equiv_component(X notequiv Y, neg(X equiv Y)).
+equiv_component(neg(X equiv Y), neg((X imp Y) and (X revimp Y))).
+equiv_component(neg(X notequiv Y), X equiv Y).
 
 
 % member(Element, List) :- Check if item occurs in list
@@ -111,6 +135,7 @@ remove(X, [Head | Tail], [Head | Newtail]) :-
     remove(X, Tail, Newtail).
 
 
+% Unary conversions
 resolutionstep([Disjunction | Rest], New) :-
     member(Formula, Disjunction),
     unary(Formula),
@@ -118,6 +143,19 @@ resolutionstep([Disjunction | Rest], New) :-
     remove(Formula, Disjunction, Temporary),
     NewDisjunction = [NewFormula | Temporary],
     write('Unary \n'),
+    write(NewDisjunction), write('\n \n'),
+    New = [NewDisjunction | Rest].
+
+
+% Equivalent conversions
+resolutionstep([Disjunction | Rest], New) :-
+    member(Formula, Disjunction),
+    equiv_operator(Formula),
+    equiv_component(Formula, NewFormula),
+    remove(Formula, Disjunction, Temporary),
+    NewDisjunction = [NewFormula | Temporary],
+    write('Equivalent \n'),
+    write(NewDisjunction), write('\n \n'),
     New = [NewDisjunction | Rest].
 
  
@@ -130,7 +168,7 @@ resolutionstep([Disjunction | Rest], New) :-
     remove(Beta, Disjunction, Temporary),
     Newdis = [Betaone, Betatwo | Temporary],
     write('Beta \n'),
-    write(Betaone), write(', '), write(Betatwo), write('\n \n'),
+    write(Newdis), write('\n \n'),
     New = [Newdis | Rest].
 
 % Alpha rule
@@ -143,8 +181,8 @@ resolutionstep([Disjunction | Rest], New) :-
     Newdisone = [Alphaone | Temporary],
     Newdistwo = [Alphatwo | Temporary],
     write('Alpha \n'),
-    write(Alphaone), write('\n'),
-    write(Alphatwo), write('\n \n'),
+    write(Newdisone), write('\n'),
+    write(Newdistwo), write('\n \n'),
     New = [Newdisone, Newdistwo | Rest].
 
 
@@ -154,25 +192,33 @@ resolutionstep([Disjunction | Rest], New) :-
 
 resolutionstep([Disjunction | Rest], New) :-
     % write('Resolution Rule Check - '), write(Disjunction), write('\n'),
+    % Select literal from this disjunction
     member(Literal, Disjunction),
+    % Get negation of literal
+    component(neg(Literal), Negation),
+    % Select another disjunction where Negation is in it
     member(OtherDisjunction, Rest),
     % write('Other - '), write(OtherDisjunction), write('\n'),
     % write(Literal), write('\n'),
-    component(neg(Literal), Negation),
     % write('made component \n'),
     % write('Looking for - '),write(Negation), write('\n'),
     member(Negation, OtherDisjunction),
     % member(neg(Literal), OtherDisjunction),
 
     remove(Literal, Disjunction, TemporaryOne),
+    remove(Negation, TemporaryOne, NewTemporaryOne),
     % remove(component(neg(Literal)), OtherDisjunction, TemporaryTwo), 
-    remove(Negation, OtherDisjunction, TemporaryTwo), 
-    append([TemporaryOne,TemporaryTwo], NewDisjunction),
+    remove(Literal, OtherDisjunction, TemporaryTwo),
+    remove(Negation, TemporaryTwo, NewTemporaryTwo), 
+    append([NewTemporaryOne,NewTemporaryTwo], NewDisjunction),
 
     % remove(OtherDisjunction, Rest, NewConjunction),
     write('Resolution \n'),
     write(NewDisjunction), write('\n \n'),
-    New = [NewDisjunction | [Disjunction | Rest]].
+
+    append(Rest, [Disjunction], NewRest),
+    not(member(NewDisjunction, NewRest)),
+    New = [NewDisjunction | NewRest].
 
 resolutionstep([Disjunction|Rest], [Disjunction|Newrest]) :-
     resolutionstep(Rest, Newrest).
@@ -188,8 +234,8 @@ clauseform(X, Y) :- resolution([[X]], Y).
 
 
 % Test for closure
-closed(Conjunction) :- member([], Conjunction).
-closed(Conjunction) :- member(X, Conjunction), member(neg X, Conjunction).
+closed(Conjunction) :- member([], Conjunction), write('Closed with [] \n \n').
+closed(Conjunction) :- member([X], Conjunction), member([neg X], Conjunction), write('Closed with '), write([X]), write(' and '), write([neg X]), write('\n \n').
 
 if_then_else(P,Q,R) :- P,!,Q.
 if_then_else(P,Q,R) :- R.
@@ -221,4 +267,4 @@ no :- write('NO'), nl.
 
 
 
-my_test:-test(((x imp y) and x) imp y).
+my_test:-test((neg (z notrevimp y) revimp x) imp ((x or w) imp ((y imp z) or w))).

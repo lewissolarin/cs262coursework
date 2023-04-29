@@ -12,9 +12,10 @@ import time
 # path where program file is stored
 path = './'
 # this is the list of expected answers to the example formulas
-solutions = ['YES','NO', 'YES', 'YES']
+# example, 1,2,3,7,8,10
+solutions = ['YES', 'YES', 'YES', 'YES', 'YES','NO', 'YES']
 # a list of all propositional formulas that we want to test the program on
-formulas = ['x or neg x', '(x uparrow y) equiv z', '((x imp y) and x) imp y', '(neg x imp y) imp (neg (x notimp y) imp y)']
+formulas = ['x or neg x', '((x imp y) and x) imp y', '((x imp y) and (y imp z)) imp (neg neg z or neg x)','(neg x imp y) imp (neg (x notimp y) imp y)','(neg x downarrow neg y) revimp neg (x uparrow y)', '(neg x revimp neg y) and ((z notrevimp u) or (u uparrow neg v))',  '(neg (z notrevimp y) revimp x) imp ((x or w) imp ((y imp z) or w))']
 
 # run the code with all the formulas as input
 def run_tests():
