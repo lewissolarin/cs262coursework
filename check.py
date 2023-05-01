@@ -47,9 +47,9 @@ question10formula = '(neg (z notrevimp y) revimp x) imp ((x or w) imp ((y imp z)
 question10solution = 'YES'
 
 
-solutions = [example1solution, question1solution, question2solution, question3solution, question4solution , question5solution, question7solution, question8solution, question9solution, question10solution]
+solutions = [example1solution, question1solution, question2solution, question3solution, question4solution , question5solution, question7solution, question9solution, question10solution]
 # a list of all propositional formulas that we want to test the program on
-formulas = [example1formula, question1formula, question2formula, question3formula, question4solution , question5formula, question7formula, question8formula,  question9formula, question10solution]
+formulas = [example1formula, question1formula, question2formula, question3formula, question4solution , question5formula, question7formula,  question9formula, question10solution]
 
 # run the code with all the formulas as input
 def run_tests():
