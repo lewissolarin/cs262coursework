@@ -8,27 +8,346 @@ Beta
 Beta 
 [z,neg y,neg x]
  
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
 Alpha 
 [x or w]
 [neg ((y imp z)or w)]
  
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
 Beta 
 [x,w]
  
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+[]
 Resolution 
 [z,neg y,w]
  
-Resolution 
-[w,z,neg y]
- 
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
 Alpha 
 [neg (y imp z)]
 [neg w]
  
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+[[[z,neg y,neg x],[x,w]]]
+Resolution 
+[x]
+ 
+Alpha 
+[y]
+[neg z]
+ 
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+[[[x,w],[neg w]],[[z,neg y,neg x],[x,w]]]
+Resolution 
+[z,neg x]
+ 
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+[[[y],[z,neg y,neg x]],[[x,w],[neg w]],[[z,neg y,neg x],[x,w]]]
+Resolution 
+[neg y,neg x]
+ 
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+[[[neg z],[z,neg y,neg x]],[[y],[z,neg y,neg x]],[[x,w],[neg w]],[[z,neg y,neg x],[x,w]]]
 Resolution 
 [z,neg y]
  
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+[[[neg w],[z,neg y,w]],[[neg z],[z,neg y,neg x]],[[y],[z,neg y,neg x]],[[x,w],[neg w]],[[z,neg y,neg x],[x,w]]]
 Resolution 
-[z,neg y]
+[z,neg y,x]
  
-NO
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+[[[z,neg y,neg x],[x]],[[neg w],[z,neg y,w]],[[neg z],[z,neg y,neg x]],[[y],[z,neg y,neg x]],[[x,w],[neg w]],[[z,neg y,neg x],[x,w]]]
+Resolution 
+[neg y,w]
+ 
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+[[[z,neg y,w],[neg z]],[[z,neg y,neg x],[x]],[[neg w],[z,neg y,w]],[[neg z],[z,neg y,neg x]],[[y],[z,neg y,neg x]],[[x,w],[neg w]],[[z,neg y,neg x],[x,w]]]
+Resolution 
+[w,z]
+ 
+Finding literal in disjunction 
+Finding another disjunction 
+Finding negation in other disjunction 
+Finding negation in other disjunction 
+Remove literal and negation from disjunction 
+Removing literal and negation from other disjunction 
+Creating resolvent 
+Addign original disjunction back to rest 
+Checking resolvent is not found later in disjunction 
+Checking disjunction and other have not already been resolved 
+Checking other and disjunction have not already been resolved 
+[[[x,w],[z,neg x]],[[z,neg y,w],[neg z]],[[z,neg y,neg x],[x]],[[neg w],[z,neg y,w]],[[neg z],[z,neg y,neg x]],[[y],[z,neg y,neg x]],[[x,w],[neg w]],[[z,neg y,neg x],[x,w]]]
+Resolution 
+[z]
+ 
+Closed with [z] and [neg z]
+ 
+YES

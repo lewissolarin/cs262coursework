@@ -147,7 +147,7 @@ remove_duplicates([Head | Tail], [Head | Result]) :-
 
 
 % Unary conversions
-resolutionstep([Disjunction | Rest], New) :-
+resolutionstep([Disjunction | Rest], Used, New, NewUsed) :-
     member(Formula, Disjunction),
     unary(Formula),
     component(Formula, NewFormula),
@@ -155,11 +155,12 @@ resolutionstep([Disjunction | Rest], New) :-
     NewDisjunction = [NewFormula | Temporary],
     write('Unary \n'),
     write(NewDisjunction), write('\n \n'),
+    NewUsed = Used,
     New = [NewDisjunction | Rest].
 
 
 % Equivalent conversions
-resolutionstep([Disjunction | Rest], New) :-
+resolutionstep([Disjunction | Rest], Used, New, NewUsed) :-
     member(Formula, Disjunction),
     equiv_operator(Formula),
     equiv_component(Formula, NewFormula),
@@ -167,12 +168,13 @@ resolutionstep([Disjunction | Rest], New) :-
     NewDisjunction = [NewFormula | Temporary],
     write('Equivalent \n'),
     write(NewDisjunction), write('\n \n'),
+    NewUsed = Used,
     New = [NewDisjunction | Rest].
 
  
 % Beta rule - More efficent to always do these first
 
-resolutionstep([Disjunction | Rest], New) :-
+resolutionstep([Disjunction | Rest], Used, New, NewUsed) :-
     member(Beta, Disjunction),
     disjunctive(Beta),
     components(Beta, Betaone, Betatwo),
@@ -180,11 +182,12 @@ resolutionstep([Disjunction | Rest], New) :-
     Newdis = [Betaone, Betatwo | Temporary],
     write('Beta \n'),
     write(Newdis), write('\n \n'),
+    NewUsed = Used,
     New = [Newdis | Rest].
 
 % Alpha rule
 
-resolutionstep([Disjunction | Rest], New) :-
+resolutionstep([Disjunction | Rest], Used, New, NewUsed) :-
     member(Alpha, Disjunction),
     conjunctive(Alpha),
     components(Alpha, Alphaone, Alphatwo),
@@ -194,6 +197,7 @@ resolutionstep([Disjunction | Rest], New) :-
     write('Alpha \n'),
     write(Newdisone), write('\n'),
     write(Newdistwo), write('\n \n'),
+    NewUsed = Used,
     New = [Newdisone, Newdistwo | Rest].
 
 
@@ -201,53 +205,79 @@ resolutionstep([Disjunction | Rest], New) :-
 
 % Resolution Rule
 
-resolutionstep([Disjunction | Rest], New) :-
+resolutionstep([Disjunction | Rest], Used, New, NewUsed) :-
     % write('Resolution Rule Check - '), write(Disjunction), write('\n'),
     % Select literal from this disjunction
+    write('Finding literal in disjunction \n'),
     member(Literal, Disjunction),
     % Get negation of literal
     component(neg(Literal), Negation),
     % Select another disjunction where Negation is in it
+    write('Finding another disjunction \n'),
     member(OtherDisjunction, Rest),
     % write('Other - '), write(OtherDisjunction), write('\n'),
     % write(Literal), write('\n'),
-    % write('made component \n'),
+    write('Finding negation in other disjunction \n'),
     % write('Looking for - '),write(Negation), write('\n'),
     member(Negation, OtherDisjunction),
     % member(neg(Literal), OtherDisjunction),
 
-    remove(Literal, Disjunction, TemporaryOne),
-    % remove(component(neg(Literal)), OtherDisjunction, TemporaryTwo), 
-    remove(Negation, OtherDisjunction, TemporaryTwo), 
-    append([TemporaryOne,TemporaryTwo], Resolvent),
 
-    % remove(OtherDisjunction, Rest, NewConjunction),
-    write('Resolution \n'),
-    write(Resolvent), write('\n \n'),
+    write('Remove literal and negation from disjunction \n'),
+    remove(Literal, Disjunction, TemporaryOne),
+    remove(Negation, TemporaryOne, NewTemporaryOne),
+    % remove(component(neg(Literal)), OtherDisjunction, TemporaryTwo), 
+    write('Removing literal and negation from other disjunction \n'),
+    remove(Literal, OtherDisjunction, TemporaryTwo),
+    remove(Negation, TemporaryTwo, NewTemporaryTwo), 
+    write('Creating resolvent \n'),
+    append([NewTemporaryOne,NewTemporaryTwo], Resolvent),
 
     
+    % remove(Literal, Disjunction, TemporaryOne),
+    % % remove(component(neg(Literal)), OtherDisjunction, TemporaryTwo), 
+    
+    % remove(Negation, OtherDisjunction, TemporaryTwo), 
+    
+    % append([TemporaryOne,TemporaryTwo], Resolvent),
+
+    % remove(OtherDisjunction, Rest, NewConjunction),
+    
+
+    write('Addign original disjunction back to rest \n'),
     append(Rest, [Disjunction], NewRest),
     % sort
     % !  Having a cut here will make it work for NO instances
     % Need a way to stop running infintely
+    write('Checking resolvent is not found later in disjunction \n'),
     not(member(Resolvent, NewRest)),
+    write('Checking disjunction and other have not already been resolved \n'),
+    not(member([Disjunction, OtherDisjunction], Used)),
+    write('Checking other and disjunction have not already been resolved \n'),
+    not(member([OtherDisjunction, Disjunction], Used)),
+    NewUsed = [[Disjunction, OtherDisjunction] | Used],
+    write(Used),
+    write('\n'),
+
+    write('Resolution \n'),
+    write(Resolvent), write('\n \n'),
     % append([Resolvent], NewRest, NewNewRest),
     append(NewRest, [Resolvent], New).
     
 
     % New = [NewDisjunction | NewRest].
 
-resolutionstep([Disjunction|Rest], [Disjunction|Newrest]) :-
-    resolutionstep(Rest, Newrest).
+resolutionstep([Disjunction|Rest], Used, [Disjunction|Newrest], NewUsed) :-
+    resolutionstep(Rest, Used, Newrest, NewUsed).
 
 
-resolution(Conjunction, Newconjunction) :-
-    resolutionstep(Conjunction, Temp),
-    resolution(Temp, Newconjunction).
+% resolution(Conjunction, Newconjunction) :-
+%     resolutionstep(Conjunction, Temp),
+%     resolution(Temp, Newconjunction).
 
-resolution(Conjunction, Conjunction).
+% resolution(Conjunction, Conjunction).
 
-clauseform(X, Y) :- resolution([[X]], Y).
+% clauseform(X, Y) :- resolution([[X]], Y).
 
 
 % Test for closure
@@ -257,16 +287,16 @@ closed(Conjunction) :- member([X], Conjunction), member([neg X], Conjunction), w
 if_then_else(P,Q,R) :- P,!,Q.
 if_then_else(P,Q,R) :- R.
 
-resolutionstep_and_close(Resolution) :-
+resolutionstep_and_close(Resolution, Used) :-
     closed(Resolution).
 
-resolutionstep_and_close(Resolution) :-
-    resolutionstep(Resolution, Newresolution),
+resolutionstep_and_close(Resolution, Used) :-
+    resolutionstep(Resolution, Used, Newresolution, NewUsed),
     !,
-    resolutionstep_and_close(Newresolution).
+    resolutionstep_and_close(Newresolution, NewUsed).
 
 test(X) :-
-    if_then_else(resolutionstep_and_close([[neg X]]), yes, no).
+    if_then_else(resolutionstep_and_close([[neg X]],[]), yes, no).
 
 
 
