@@ -3,6 +3,7 @@
 2. YES
 3. YES
 4. YES
+5. YES
 7. YES
 8. NO 
 9. YES CHECK AGAIN
@@ -13,6 +14,8 @@
 % 1. YES
 % 2. YES
 % 3. YES
+% 4  YES
+% 5. YES
 % 7. YES
 % 8. NO 
 % 9. YES CHECK AGAIN
@@ -314,4 +317,4 @@ no :- write('NO'), nl.
 
 
 
-my_test:-test((neg (z notrevimp y) revimp x) imp ((x or w) imp ((y imp z) or w))).
+my_test:-test(YES).
